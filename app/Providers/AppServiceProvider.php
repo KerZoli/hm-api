@@ -2,7 +2,8 @@
 
 namespace App\Providers;
 
-use Illuminate\Auth\Notifications\VerifyEmail;
+use App\Notifications\SendVerificationEmail;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\URL;
@@ -23,8 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        VerifyEmail::createUrlUsing(function (object $notifiable) {
-            return URL::temporarySignedRoute(
+        SendVerificationEmail::createUrlUsing(function (object $notifiable) {
+            $url  = Config::get('frontend.url') . '?email_verify_url=';
+            return $url . URL::temporarySignedRoute(
                 'verification.verify',
                 Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
                 [

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\SendVerificationEmail;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,9 +19,15 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
         'email',
         'password',
+        'last_name',
+        'first_name',
+        'address',
+        'birth_date',
+        'phone',
+        'bio',
+        'avatar',
     ];
 
     /**
@@ -48,6 +55,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function sendEmailVerificationNotification(): void
     {
-        $this->notify(new SendEmailVerificationNotification());
+        $this->notify(new SendVerificationEmail());
     }
 }

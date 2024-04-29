@@ -20,8 +20,13 @@ class UserRegisterController extends Controller
 
     public function __invoke(UserRegisterRequest $request): JsonResponse
     {
-        $user = $this->createUser->execute($request->validated());
-        $request->file('avatar')->store('avatars');
+        $data = $request->validated();
+        if ($request->hasFile('avatar')) {
+            $path = $request->file('avatar')->store('avatars');
+            $data['avatar'] = $path;
+        }
+
+        $user = $this->createUser->execute($data);
 
         /** @var User $user */
         event(new Registered($user));
