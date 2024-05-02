@@ -11,7 +11,9 @@ class ResendEmailVerificationController
     use ApiResponseHelperTrait;
     public function __invoke(Request $request): JsonResponse
     {
-        $request->user()->sendEmailVerificationNotification();
+        if (!$request->user()->hasVerifiedEmail()) {
+            $request->user()->sendEmailVerificationNotification();
+        }
 
         return $this->respondNoContent();
     }

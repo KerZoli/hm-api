@@ -14,6 +14,7 @@ class UserRegisterRequest extends FormRequest
 
     public function rules(): array
     {
+        $x = config('app.url');
         return [
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
