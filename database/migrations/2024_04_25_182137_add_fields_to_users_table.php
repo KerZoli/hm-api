@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('last_name');
-            $table->string('first_name');
+            $table->string('username');
             $table->string('address')->nullable();
             $table->date('birth_date')->nullable();
             $table->string('phone')->nullable();
@@ -30,8 +29,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn([
-                'last_name',
-                'first_name',
+                'username',
                 'address',
                 'birth_date',
                 'phone',
