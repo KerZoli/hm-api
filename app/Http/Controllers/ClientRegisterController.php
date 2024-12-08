@@ -4,21 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Actions\CreateUser;
 use App\Http\ApiResponseHelperTrait;
-use App\Http\Requests\UserRegisterRequest;
+use App\Http\Requests\ClientRegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserRegisterController extends Controller
+class ClientRegisterController extends Controller
 {
     use ApiResponseHelperTrait;
 
     public function __construct(private readonly CreateUser $createUser)
     {}
 
-    public function __invoke(UserRegisterRequest $request): JsonResponse
+    public function __invoke(ClientRegisterRequest $request): JsonResponse
     {
         $data = $request->validated();
         if ($request->hasFile('avatar')) {
