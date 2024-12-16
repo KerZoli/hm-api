@@ -3,13 +3,15 @@
 namespace App\Actions;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 
 class CreateUser
 {
-    public function execute(array $data): Model|Builder
+    public function execute(array $data): User
     {
-        return User::query()->create($data);
+        $user = new User();
+        $user->fill($data);
+        $user->save();
+
+        return $user;
     }
 }

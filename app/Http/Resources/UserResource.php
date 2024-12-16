@@ -10,7 +10,7 @@ class UserResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'name' => $this->first_name . ' ' . $this->last_name,
+            'username' => $this->username,
             'email' => $this->email,
             'is_verified' => !empty($this->email_verified_at),
         ];
