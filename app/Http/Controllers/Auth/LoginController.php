@@ -22,7 +22,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return $this->respondOk(new UserResource(Auth::user()));
+            return $this->respondOk(new UserResource(Auth::user()->load('roles')));
         }
 
         return $this->respondError('Invalid credentials.');

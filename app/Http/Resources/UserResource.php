@@ -12,6 +12,7 @@ class UserResource extends JsonResource
         return [
             'username' => $this->username,
             'email' => $this->email,
+            'roles' => RoleResource::collection($this->whenLoaded('roles')),
             'is_verified' => !empty($this->email_verified_at),
         ];
     }

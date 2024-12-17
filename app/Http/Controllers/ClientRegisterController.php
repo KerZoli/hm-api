@@ -34,6 +34,8 @@ class ClientRegisterController extends Controller
 
         event(new Registered($user));
 
+        $user->load('roles');
+
         return $this->respondOk(new UserResource($user), Response::HTTP_CREATED);
     }
 }
